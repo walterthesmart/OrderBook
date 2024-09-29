@@ -35,7 +35,6 @@
   (let
     (
       (order-id (var-get order-counter))
-      (timestamp (block-height))
     )
     (begin
       (var-set order-counter (+ order-id u1))
@@ -46,7 +45,7 @@
           (order-type order-type)
           (amount amount)
           (price price)
-          (timestamp timestamp)
+          (timestamp (get-block-info? time block-height))
         )
       )
       (ok order-id)
@@ -66,6 +65,7 @@
         (map-delete orders ((order-id order-id)))
         (ok true)
       )
+      ;; Handle the case where the order does not exist
       (err u101)
     )
   )
@@ -112,13 +112,6 @@
     )
   )
 )
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
 
 
 
